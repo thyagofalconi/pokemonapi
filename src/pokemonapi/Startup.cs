@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using pokemonapi.Services;
+using pokemonapi.Services.Interfaces;
 
 namespace pokemonapi
 {
@@ -25,6 +27,8 @@ namespace pokemonapi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+
+            services.AddScoped<IPokemonService, PokemonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
