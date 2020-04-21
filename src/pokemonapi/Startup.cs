@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using pokemonapi.Services;
 using pokemonapi.Services.Interfaces;
+using pokemonapi.Services.Refit;
+using Refit;
 
 namespace pokemonapi
 {
@@ -27,6 +30,10 @@ namespace pokemonapi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+
+            services.AddRefitClient<IPokeApiService>().ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetSection("Apis:PokeApi:Url").Value));
+
+            services.AddRefitClient<IShakespeareService>().ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetSection("Apis:ShakespeareApi:Url").Value));
 
             services.AddScoped<IPokemonService, PokemonService>();
         }

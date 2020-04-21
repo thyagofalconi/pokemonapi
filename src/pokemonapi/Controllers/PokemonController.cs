@@ -7,11 +7,12 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using System.Web.Http.Results;
 
 namespace pokemonapi.Controllers
 {
     [ApiController]
-    [System.Web.Http.Route("[controller]")]
+    [System.Web.Http.Route("pokemon")]
     public class PokemonController : ControllerBase
     {
         private readonly ILogger<PokemonController> _logger;
@@ -26,7 +27,7 @@ namespace pokemonapi.Controllers
         [SwaggerOperation("Retrieve Shakespearean Pokemon Description")]
         [SwaggerResponse(HttpStatusCode.OK, "Retrieve Shakespearean Pokemon Description", typeof(PokemonResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Received invalid input parameters", typeof(ModelState))]
-        [Microsoft.AspNetCore.Mvc.HttpGet("{pokemonName}")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("pokemon/{pokemonName}")]
         public async Task<IActionResult> RetrieveShakespeareanDescription(string pokemonName)
         {
             if (!ModelState.IsValid || string.IsNullOrWhiteSpace(pokemonName))
@@ -40,10 +41,8 @@ namespace pokemonapi.Controllers
             {
                 return Ok(response.Response);
             }
-            else
-            {
-                return new ObjectResult(response.Exception);
-            }
+
+            return BadRequest(response.Response);
         }
     }
 }
