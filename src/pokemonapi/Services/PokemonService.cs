@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using pokemonapi.Models;
 using pokemonapi.Models.PokeApi;
-using pokemonapi.Services.Interfaces;
 using pokemonapi.Services.Refit;
 using Refit;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -24,7 +24,6 @@ namespace pokemonapi.Services
             _shakespeareService = shakespeareService;
         }
 
-
         public async Task<PokemonResponse> RetrieveShakespeareanDescription(string pokemonName)
         {
             //Get Pokemon
@@ -36,13 +35,13 @@ namespace pokemonapi.Services
             }
             catch (ApiException apiException)
             {
-                return apiException.Content == "Not Found"
-                    ? new PokemonResponse("Pokemon not found.")
-                    : new PokemonResponse($"Failed to retrieve pokemon. Try again later. Error description: {apiException.Content}");
+                return apiException.Content == HttpStatusCode.NotFound.ToString()
+                    ? new PokemonFailedResponse("Pokemon not found.", HttpStatusCode.NotFound)
+                    : new PokemonFailedResponse($"Failed to retrieve pokemon. Try again later. Error description: {apiException.Content}");
             }
             catch (Exception exception)
             {
-                return new PokemonResponse($"Failed to retrieve pokemon. Try again later. Error description: {exception.Message}");
+                return new PokemonFailedResponse($"Failed to retrieve pokemon. Try again later. Error description: {exception.Message}");
             }
 
             //Get Pokemon description
@@ -56,18 +55,18 @@ namespace pokemonapi.Services
 
                 if (string.IsNullOrEmpty(pokemonDescriptionEnglish))
                 {
-                    return new PokemonResponse("Pokemon description in English not found.");
+                    return new PokemonFailedResponse("Pokemon description in English not found.");
                 }
             }
             catch (ApiException apiException)
             {
-                return apiException.Content == "Not Found" ?
-                    new PokemonResponse("Pokemon not found.") :
-                    new PokemonResponse($"Failed to retrieve pokemon description. Try again later. Error description: {apiException.Content}");
+                return apiException.Content == HttpStatusCode.NotFound.ToString() ?
+                    new PokemonFailedResponse("Pokemon not found.", HttpStatusCode.NotFound) :
+                    new PokemonFailedResponse($"Failed to retrieve pokemon description. Try again later. Error description: {apiException.Content}");
             }
             catch (Exception exception)
             {
-                return new PokemonResponse($"Failed to retrieve pokemon description. Try again later. Error description: {exception.Message}");
+                return new PokemonFailedResponse($"Failed to retrieve pokemon description. Try again later. Error description: {exception.Message}");
             }
 
             //Translate to Shakespearean
@@ -80,22 +79,18 @@ namespace pokemonapi.Services
 
                 if (string.IsNullOrEmpty(shakespeareTranslation))
                 {
-                    return new PokemonResponse("Translation not available.");
+                    return new PokemonFailedResponse("Translation not available.", HttpStatusCode.NotFound);
                 }
 
-                return new PokemonResponse(new PokemonSuccessfulResponse
-                {
-                    Description = HttpUtility.UrlDecode(pokemonDescriptionEnglish),
-                    Name = pokemonName
-                });
+                return new PokemonSuccessfulResponse(pokemonName, HttpUtility.UrlDecode(pokemonDescriptionEnglish));
             }
             catch (ApiException apiException)
             {
-                return new PokemonResponse($"Failed to translate. Try again later. Error description: {apiException.Content}");
+                return new PokemonFailedResponse($"Failed to translate. Try again later. Error description: {apiException.Content}");
             }
             catch (Exception exception)
             {
-                return new PokemonResponse($"Failed to translate. Try again later. Error description: {exception.Message}");
+                return new PokemonFailedResponse($"Failed to translate. Try again later. Error description: {exception.Message}");
             }
         }
     }

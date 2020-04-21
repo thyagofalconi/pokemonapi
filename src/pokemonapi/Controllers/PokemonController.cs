@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using pokemonapi.Models;
-using pokemonapi.Services.Interfaces;
+using pokemonapi.Services;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using System.Web.Http.Results;
 
 namespace pokemonapi.Controllers
 {
@@ -25,7 +24,7 @@ namespace pokemonapi.Controllers
         }
 
         [SwaggerOperation("Retrieve Shakespearean Pokemon Description")]
-        [SwaggerResponse(HttpStatusCode.OK, "Retrieve Shakespearean Pokemon Description", typeof(PokemonResponse))]
+        [SwaggerResponse(HttpStatusCode.OK, "Retrieved Shakespearean Pokemon Description", typeof(PokemonResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Received invalid input parameters", typeof(ModelState))]
         [Microsoft.AspNetCore.Mvc.HttpGet("pokemon/{pokemonName}")]
         public async Task<IActionResult> RetrieveShakespeareanDescription(string pokemonName)
@@ -39,10 +38,20 @@ namespace pokemonapi.Controllers
 
             if (response.Success)
             {
-                return Ok(response.Response);
+                return Ok(response);
             }
 
-            return BadRequest(response.Exception);
+            if (response is PokemonFailedResponse failedResponse)
+            {
+                if (failedResponse.HttpStatusCode != null && failedResponse.HttpStatusCode == HttpStatusCode.NotFound)
+                {
+                    return NotFound(failedResponse.Exception);
+                }
+
+                return BadRequest(failedResponse.Exception);
+            }
+
+            return BadRequest();
         }
     }
 }

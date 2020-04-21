@@ -1,7 +1,7 @@
-﻿using pokemonapi.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using pokemonapi.Models;
 
-namespace pokemonapi.Services.Interfaces
+namespace pokemonapi.Services
 {
     public interface IPokemonService
     {

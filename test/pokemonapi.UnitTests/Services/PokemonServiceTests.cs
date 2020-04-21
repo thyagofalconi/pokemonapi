@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
+using pokemonapi.Models;
 using pokemonapi.Models.PokeApi;
 using pokemonapi.Models.ShakespeareApi;
 using pokemonapi.Services;
@@ -54,9 +55,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
-            Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to retrieve pokemon. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 404 (Not Found).)");
+            Assert.IsTrue(response is PokemonFailedResponse);
+            Assert.IsTrue((response as PokemonFailedResponse).Success == false);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to retrieve pokemon. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 404 (Not Found).)");
         }
 
         [TestMethod]
@@ -81,9 +83,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to retrieve pokemon. Try again later. Error description: Exception of type 'System.Exception' was thrown.");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to retrieve pokemon. Try again later. Error description: Exception of type 'System.Exception' was thrown.");
         }
 
         [TestMethod]
@@ -109,9 +112,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to retrieve pokemon. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 500 (Internal Server Error).)");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to retrieve pokemon. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 500 (Internal Server Error).)");
         }
 
         [TestMethod]
@@ -140,9 +144,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to retrieve pokemon description. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 404 (Not Found).)");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to retrieve pokemon description. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 404 (Not Found).)");
         }
 
         [TestMethod]
@@ -171,9 +176,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to retrieve pokemon description. Try again later. Error description: Exception of type 'System.Exception' was thrown.");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to retrieve pokemon description. Try again later. Error description: Exception of type 'System.Exception' was thrown.");
         }
 
         [TestMethod]
@@ -202,9 +208,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to retrieve pokemon description. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 500 (Internal Server Error).)");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to retrieve pokemon description. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 500 (Internal Server Error).)");
         }
 
         [TestMethod]
@@ -247,9 +254,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Pokemon description in English not found.");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Pokemon description in English not found.");
         }
         
         [TestMethod]
@@ -297,9 +305,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to translate. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 500 (Internal Server Error).)");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to translate. Try again later. Error description: One or more errors occurred. (Response status code does not indicate success: 500 (Internal Server Error).)");
         }
 
         [TestMethod]
@@ -346,9 +355,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Failed to translate. Try again later. Error description: Exception of type 'System.Exception' was thrown.");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Failed to translate. Try again later. Error description: Exception of type 'System.Exception' was thrown.");
         }
         
         [TestMethod]
@@ -402,9 +412,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonFailedResponse);
             Assert.IsTrue(response.Success == false);
-            Assert.IsTrue(response.Exception != null);
-            Assert.IsTrue(response.Exception == "Translation not available.");
+            Assert.IsTrue((response as PokemonFailedResponse).Exception != null);
+            Assert.IsTrue((response as PokemonFailedResponse).Exception == "Translation not available.");
         }
 
         [TestMethod]
@@ -459,10 +470,10 @@ namespace pokemonapi.UnitTests.Services
             // Then
 
             Assert.IsTrue(response != null);
+            Assert.IsTrue(response is PokemonSuccessfulResponse);
             Assert.IsTrue(response.Success == true);
-            Assert.IsTrue(response.Response != null);
-            Assert.IsTrue(response.Response.Description == expectedTranslation);
-            Assert.IsTrue(response.Response.Name == pokemon);
+            Assert.IsTrue((response as PokemonSuccessfulResponse).Description == expectedTranslation);
+            Assert.IsTrue((response as PokemonSuccessfulResponse).Name == pokemon);
         }
 
     }

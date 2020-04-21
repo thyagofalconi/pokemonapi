@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using pokemonapi.Controllers;
 using pokemonapi.Models;
-using pokemonapi.Services.Interfaces;
+using pokemonapi.Services;
 
 namespace pokemonapi.UnitTests.Controllers
 {
@@ -38,7 +38,7 @@ namespace pokemonapi.UnitTests.Controllers
 
             pokemonService
                 .RetrieveShakespeareanDescription(Arg.Any<string>())
-                .Returns(new PokemonResponse(new PokemonSuccessfulResponse { Description = expectedResponse, Name = pokemon }));
+                .Returns(new PokemonSuccessfulResponse(pokemon, expectedResponse));
 
             // When
             
@@ -66,7 +66,7 @@ namespace pokemonapi.UnitTests.Controllers
 
             pokemonService
                 .RetrieveShakespeareanDescription(Arg.Any<string>())
-                .Returns(new PokemonResponse(expectedErrorMessage));
+                .Returns(new PokemonFailedResponse(expectedErrorMessage));
 
             // When
 

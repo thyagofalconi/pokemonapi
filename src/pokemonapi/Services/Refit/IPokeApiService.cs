@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using pokemonapi.Models;
-using pokemonapi.Models.PokeApi;
+﻿using pokemonapi.Models.PokeApi;
 using Refit;
+using System.Threading.Tasks;
 
 namespace pokemonapi.Services.Refit
 {

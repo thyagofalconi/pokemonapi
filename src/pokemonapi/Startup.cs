@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using pokemonapi.Services;
-using pokemonapi.Services.Interfaces;
 using pokemonapi.Services.Refit;
 using Refit;
 
