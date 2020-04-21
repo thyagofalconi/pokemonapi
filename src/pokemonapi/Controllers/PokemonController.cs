@@ -42,7 +42,7 @@ namespace pokemonapi.Controllers
                 return Ok(response.Response);
             }
 
-            return BadRequest(response.Response);
+            return BadRequest(response.Exception);
         }
     }
 }

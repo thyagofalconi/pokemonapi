@@ -3,12 +3,18 @@
     public class PokemonResponse
     {
         public bool Success { get; set; }
-        public object Response { get; set; }
+        public PokemonSuccessfulResponse Response { get; set; } 
+        public string Exception { get; set; }
 
-        public PokemonResponse(bool success, object response)
+        public PokemonResponse(PokemonSuccessfulResponse response)
         {
-            Success = success;
+            Success = true;
             Response = response;
+        }
+        public PokemonResponse(string exception)
+        {
+            Success = false;
+            Exception = exception;
         }
     }
 }

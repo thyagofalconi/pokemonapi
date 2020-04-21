@@ -2,7 +2,7 @@
 
 namespace pokemonapi.Models.PokeApi
 {
-    public class PokemonSpeciesTextLanguage
+    public class PokeApiSpeciesTextLanguage
     {
         [JsonProperty("name")]
         public string Name { get; set; }

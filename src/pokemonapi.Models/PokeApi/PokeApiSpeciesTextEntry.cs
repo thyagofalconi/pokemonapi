@@ -2,12 +2,12 @@
 
 namespace pokemonapi.Models.PokeApi
 {
-    public class PokemonSpeciesTextEntry
+    public class PokeApiSpeciesTextEntry
     {
         [JsonProperty("flavor_text")]
         public string Text { get; set; }
 
         [JsonProperty("language")]
-        public PokemonSpeciesTextLanguage Language { get; set; }
+        public PokeApiSpeciesTextLanguage Language { get; set; }
     }
 }

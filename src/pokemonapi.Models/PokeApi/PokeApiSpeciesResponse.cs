@@ -6,6 +6,6 @@ namespace pokemonapi.Models.PokeApi
     public class PokeApiSpeciesResponse
     {
         [JsonProperty("flavor_text_entries")]
-        public List<PokemonSpeciesTextEntry> TextEntries { get; set; }
+        public List<PokeApiSpeciesTextEntry> TextEntries { get; set; }
     }
 }
