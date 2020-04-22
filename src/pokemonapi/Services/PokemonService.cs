@@ -35,7 +35,7 @@ namespace pokemonapi.Services
             }
             catch (ApiException apiException)
             {
-                return apiException.Content == HttpStatusCode.NotFound.ToString()
+                return apiException.Content == "Not Found"
                     ? new PokemonFailedResponse("Pokemon not found.", HttpStatusCode.NotFound)
                     : new PokemonFailedResponse($"Failed to retrieve pokemon. Try again later. Error description: {apiException.Content}");
             }
@@ -60,7 +60,7 @@ namespace pokemonapi.Services
             }
             catch (ApiException apiException)
             {
-                return apiException.Content == HttpStatusCode.NotFound.ToString() ?
+                return apiException.Content == "Not Found" ?
                     new PokemonFailedResponse("Pokemon not found.", HttpStatusCode.NotFound) :
                     new PokemonFailedResponse($"Failed to retrieve pokemon description. Try again later. Error description: {apiException.Content}");
             }
