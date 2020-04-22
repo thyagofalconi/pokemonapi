@@ -22,7 +22,7 @@ curl -X GET "https://localhost:44338/pokemon/charizard" -H "accept: */*"
 
 ### Built With
 
-* [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) - The web framework used
+* [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
 ### Authors
 
@@ -32,11 +32,10 @@ curl -X GET "https://localhost:44338/pokemon/charizard" -H "accept: */*"
 
 * Retry policy
 * Add support for multiple languages
-* Add tests for logging
 * Trigger logger in services
 * Add tests for refit services
 * Fix warnings
 
 ### Important
 
-There's a limitation of 5 requests per hour per IP, tests will fail with 429 (Too Many Requests) if limit is reached.
+There's a limitation of 5 requests per hour per IP, tests will fail with HTTP 429 (Too Many Requests) if limit is reached.
