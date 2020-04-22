@@ -15,7 +15,7 @@ https://localhost:44338/swagger/index.html
 
 curl -X GET "https://localhost:44338/pokemon/charizard" -H "accept: */*"
 
-### Test available
+### Tests
 
 * Unit Tests
 * Integration Tests
@@ -28,3 +28,15 @@ curl -X GET "https://localhost:44338/pokemon/charizard" -H "accept: */*"
 
 * **Thyago Falconi**
 
+### TODO
+
+* Retry policy
+* Add support for multiple languages
+* Add tests for logging
+* Trigger logger in services
+* Add tests for refit services
+* Fix warnings
+
+### Important
+
+There's a limitation of 5 requests per hour per IP, tests will fail with 429 (Too Many Requests) if limit is reached.
